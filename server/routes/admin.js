@@ -18,7 +18,6 @@ router.get("/me", isExisted, GetMe);
 router.get("/:id", isExisted, IsAdmin, GetOneAdmin);
 router.post("/login", AdminLogin);
 router.post("/create", isExisted, IsAdmin, CreateNewAdmin);
-// router.post("/create", CreateNewAdmin);
 router.put("/:id", isExisted, IsAdmin, UpdateAdmin);
 router.delete("/:id", isExisted, IsAdmin, DeleteAdmin);
 

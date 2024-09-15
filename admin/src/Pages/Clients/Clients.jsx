@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Axios from '../../Axios';
 import { getClientPending, getClientError, getClientSuccess } from '../../Toolkit/ClientsSlicer';
-import { Eye, Trash2 } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Trash2 } from "lucide-react";
 
 function Clients() {
-  const { data, isPending, isError } = useSelector((state) => state.clients); // Ensure this matches the slice name
+  const { data, isPending, isError } = useSelector((state) => state.clients);
   const [showModal, setShowModal] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
   const dispatch = useDispatch();
@@ -15,11 +14,11 @@ function Clients() {
     const getAllClients = async () => {
       dispatch(getClientPending());
       try {
-        const response = await Axios.get('client'); 
-        const clients = response.data; 
-        dispatch(getClientSuccess(clients)); 
+        const response = await Axios.get('client');
+        const clients = response.data;
+        dispatch(getClientSuccess(clients));
       } catch (error) {
-        dispatch(getClientError(error.response?.data?.message ));
+        dispatch(getClientError(error.response?.data?.message));
       }
     };
     getAllClients();
@@ -31,41 +30,42 @@ function Clients() {
       dispatch(getClientSuccess(data.filter((client) => client._id !== _id)));
       setShowModal(false);
     } catch (error) {
-      console.error('Error deleting client:', error.response?.data?.message || error.message);
+      console.error('Error deleting client:', error.response?.data?.message || 'Error');
     }
   };
-  const openModal = (client) => {
-    setSelectedClient(client);
-    setShowModal(true);
-  };
-  console.log(data);
+
   const closeModal = () => {
     setShowModal(false);
     setSelectedClient(null);
   };
 
+  //Styles:
+  const PeddingTd = "py-3 px-4 border-b border-gray-800";
+  const PeddingDiv = "bg-gray-600 rounded";
+  const DataTableTrTh = "py-4 px-6 text-left font-semibold"
+  const DataMapTableTr = "  py-2 px-6 text-gray-700"
 
   return (
     <div className="p-8 bg-green-100 max-h-screen overflow-y-auto">
       <div className="w-full flex justify-between items-center mb-4">
-        <h1 className="text-3xl text-black">Clients</h1>
+        <h1 className="text-3xl text-black">Clients [ {data.length} ]</h1>
       </div>
       {isPending ? (
         <table className="w-full">
           <tbody>
             {Array.from({ length: 1 }).map((_, index) => (
               <tr key={index} className="bg-gray-500 animate-pulse">
-                <td className="py-3 px-6 border-b border-gray-800">
+                <td className={PeddingTd}>
                   <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
                 </td>
-                <td className="py-3 px-6 border-b border-gray-800">
-                  <div className="w-24 h-4 bg-gray-600 rounded"></div>
+                <td className={PeddingTd}>
+                  <div className={`w-24 h-4 ${PeddingDiv}`}></div>
                 </td>
-                <td className="py-3 px-6 border-b border-gray-800">
-                  <div className="w-32 h-4 bg-gray-600 rounded"></div>
+                <td className={PeddingTd}>
+                  <div className={`w-32 h-4 ${PeddingDiv}`}></div>
                 </td>
                 <td className="py-3 px-4 border-b border-gray-800 text-center">
-                  <div className="w-6 h-6 bg-gray-600 rounded"></div>
+                  <div className={`w-6 h-6 ${PeddingDiv}`}></div>
                 </td>
               </tr>
             ))}
@@ -76,31 +76,31 @@ function Clients() {
       ) : data?.length ? (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
-            <thead className="bg-green-800 text-white">
+            <thead className="bg-sidebarBg text-white">
               <tr>
-                <th className="py-4 px-6 text-left font-semibold">Avatar</th>
-                <th className="py-4 px-6 text-left font-semibold">First Name</th>
-                <th className="py-4 px-6 text-left font-semibold">Last Name</th>
-                <th className="py-4 px-6 text-left font-semibold">Phone Number</th>
-                <th className="py-4 px-6 text-left font-semibold">Actions</th>
+                <th className={DataTableTrTh}>Avatar</th>
+                <th className={DataTableTrTh}>First Name</th>
+                <th className={DataTableTrTh}>Last Name</th>
+                <th className={DataTableTrTh}>Phone Number</th>
+                <th className={DataTableTrTh}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {data.map((client) => (
                 <tr key={client._id} className="border-b border-gray-200 hover:bg-gray-100 transition-colors">
                   <td className="py-2 px-6">
-                    <img src={client.avatar} alt="Avatar" className="w-12 h-12 rounded-full border-2 border-gray-300" />
+                    <img src={client.avatar} alt="Avatar" className="w-12 h-12 rounded-full border-2 border-highlight" />
                   </td>
-                  <td className="py-2 px-6 text-gray-700">{client.firstName}</td>
-                  <td className="py-2 px-6 text-gray-700">{client.lastName}</td>
-                  <td className="py-2 px-6 text-gray-700">{client.phoneNumber}</td>
+                  <td className={DataMapTableTr}>{client.firstName}</td>
+                  <td className={DataMapTableTr}>{client.lastName}</td>
+                  <td className={DataMapTableTr}>{client.phoneNumber}</td>
                   <td className="py-2 px-6 ">
-                      <button
-                        onClick={() => handleDelete(client._id)}
-                        className="bg-red-600 text-white rounded-md p-1 hover:bg-red-700"
-                      >
-                        <Trash2 className="text-white text-xs" />
-                      </button>
+                    <button
+                      onClick={() => handleDelete(client._id)}
+                      className="bg-red-600 text-white rounded-md p-1 hover:bg-red-700"
+                    >
+                      <Trash2 className="text-white text-xs" />
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -139,3 +139,6 @@ function Clients() {
 }
 
 export default Clients;
+
+
+

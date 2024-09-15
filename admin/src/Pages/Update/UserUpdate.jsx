@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Axios from "../../Axios";
@@ -30,23 +30,25 @@ export const UserUpdate = () => {
         phoneNumber: formData.phoneNumber,
         password: formData.newPassword,
       });
+      alert("Updated!")
       window.location.href = "/";
     } catch (error) {
       console.log(error);
     }
   };
+  //Styles :
+  const FormInput = "p-4 outline-none border border-mainText rounded-lg bg-sidebarBg text-mainText placeholder-gray-400 focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+  const LinkStyle = "text-mainText rounded-lg py-2 px-4  font-semibold transition-all"
 
   return (
-    <Section
-      className={"bg-green-100 flex flex-col justify-center items-center"}
-    >
+    <Section className="bg-dashboardBg flex flex-col justify-center items-center h-screen p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-[400px] flex flex-col gap-3 p-5 bg-white rounded-2xl shadow-xl"
+        className="w-full max-w-md bg-mainBg p-8 rounded-lg shadow-lg flex flex-col gap-6"
       >
-        <h1 className="text-center text-2xl font-bold">Update Admin</h1>
+        <h1 className="text-center text-2xl font-bold text-mainText">Update Admin</h1>
         <input
-          className="p-2 outline-none border-2 border-black rounded-2xl"
+          className={FormInput}
           type="text"
           placeholder="Firstname"
           name="firstName"
@@ -54,7 +56,7 @@ export const UserUpdate = () => {
           onChange={handleInputChange}
         />
         <input
-          className="p-2 outline-none border-2 border-black rounded-2xl"
+          className={FormInput}
           type="text"
           placeholder="Lastname"
           name="lastName"
@@ -62,7 +64,7 @@ export const UserUpdate = () => {
           onChange={handleInputChange}
         />
         <input
-          className="p-2 outline-none border-2 border-black rounded-2xl"
+          className={FormInput}
           type="number"
           placeholder="Phone number"
           name="phoneNumber"
@@ -70,23 +72,23 @@ export const UserUpdate = () => {
           onChange={handleInputChange}
         />
         <input
-          className="p-2 outline-none border-2 border-black rounded-2xl"
+          className={FormInput}
           type="password"
           placeholder="New password"
           name="newPassword"
           value={formData.newPassword}
           onChange={handleInputChange}
         />
-        <div className="grid grid-cols-2 py-2 gap-3">
+        <div className="flex justify-between gap-4">
           <Link
             to="/"
-            className="bg-black rounded-2xl flex justify-center text-white py-2"
+            className={`bg-hoverBg  text-center ${LinkStyle} hover:text-orange-500`}
           >
             Cancel
           </Link>
           <button
             type="submit"
-            className="bg-blue-600 rounded-2xl text-white py-2"
+            className={`bg-accent  ${LinkStyle} shadow-md hover:bg-highlight`}
           >
             Save
           </button>

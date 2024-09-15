@@ -41,7 +41,7 @@ export const ClientRegister = async (req, res) => {
       token,
     });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, error);
   }
 };
 

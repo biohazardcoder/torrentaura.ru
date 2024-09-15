@@ -15,15 +15,14 @@ import { AuthLayout } from "./Layout/AuthLayout";
 import { Error } from "./Pages/Error/Error";
 import { UserUpdate } from "./Pages/Update/UserUpdate";
 import { Admins } from "./Pages/Admins/Admins";
-import { Products } from "./modules/Products/Products";
-import { AddProduct } from "./Pages/Form/AddProduct";
 import { CreateAdmin } from "./Pages/Admins/CreateAdmin";
 import Clients from "./Pages/Clients/Clients";
-import EditProduct from "./Pages/Form/EditProduct";
+import { Games } from "./modules/Games/Games";
+import { AddGame } from "./Pages/Form/AddGame";
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuth, isPending, data } = useSelector((state) => state.user);
+  const { isAuth, isPending } = useSelector((state) => state.user);
 
   useEffect(() => {
     async function getMyData() {
@@ -80,16 +79,12 @@ function App() {
               element: <Clients />,
             },
             {
-              path: "products",
-              element: <Products />,
+              path: "games",
+              element: <Games />,
             },
             {
-              path: "products/edit/:id",
-              element: <EditProduct />,
-            },
-            {
-              path: "create-product",
-              element: <AddProduct />,
+              path: "create-game",
+              element: <AddGame />,
             },
             {
               path: "*",
