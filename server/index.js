@@ -3,11 +3,13 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import multer from "multer";
+import path from "path"; // Path modulini import qilish
 
-import ClientRoutes from "./routes/client.js";
-import AdminRoutes from "./routes/admin.js";
-import ProductRoutes from "./routes/product.js";
-import ChatRoutes from "./routes/chat.js";
+import ClientRoutes from "../admin/routes/client.js";
+import AdminRoutes from "../admin/routes/admin.js";
+import ProductRoutes from "../admin/routes/product.js";
+import ChatRoutes from "../admin/routes/chat.js";
+
 dotenv.config();
 
 const app = express();
@@ -16,17 +18,18 @@ app.use(cors());
 app.use(express.json());
 
 const storage = multer.diskStorage({
-  destination: (a, b, cb) => {
+  destination: (req, file, cb) => {
     cb(null, "uploads");
   },
-  filename: (a, file, cb) => {
+  filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
 
 const upload = multer({ storage });
 
-app.use("/uploads", express.static("uploads"));
+// Statik fayl sifatida uploads papkasini xizmat ko'rsatish
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.post("/upload", upload.array("photos"), async (req, res) => {
   const uploadedImages = req.files.map(
@@ -49,7 +52,7 @@ const startApp = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     app.listen(process.env.PORT, () =>
-      console.log(`server is running on http://localhost:${process.env.PORT}`)
+      console.log(`Server is running on http://localhost:${process.env.PORT}`)
     );
   } catch (error) {
     console.log(error);
