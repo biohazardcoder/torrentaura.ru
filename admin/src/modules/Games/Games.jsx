@@ -91,7 +91,7 @@ export const Games = () => {
       alert("Failed to update product");
     }
   };
-
+  console.log(data);
   //Styles:
   const PeddingTd = "py-3 px-4 border-b border-gray-800";
   const PeddingDiv = "bg-gray-600 rounded";
@@ -125,6 +125,9 @@ export const Games = () => {
                 <td className={PeddingTd}>
                   <div className={`w-32 h-4 ${PeddingDiv}`}></div>
                 </td>
+                <td className={PeddingTd}>
+                  <div className={`w-32 h-4 ${PeddingDiv}`}></div>
+                </td>
                 <td className="py-3 px-4 border-b border-gray-800 text-center">
                   <div className={`w-6 h-6 ${PeddingDiv}`}></div>
                 </td>
@@ -146,6 +149,9 @@ export const Games = () => {
               </th>
               <th className={DataLengthTableTrTh}>
                 Console
+              </th>
+              <th className={DataLengthTableTrTh}>
+                Likes
               </th>
               <th className="py-3 px-4 text-center border-b border-gray-700">
                 Actions
@@ -172,6 +178,9 @@ export const Games = () => {
                 </td>
                 <td className={DataMapTableTr}>
                   {product.console}
+                </td>
+                <td className={`${DataMapTableTr} `}>
+                  {product.like}
                 </td>
                 <td className="py-1 px-4 border-b border-gray-800 text-center ">
                   <div className="flex justify-center items-center gap-5">

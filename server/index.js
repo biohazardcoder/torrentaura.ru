@@ -7,8 +7,7 @@ import multer from "multer";
 import ClientRoutes from "./routes/client.js";
 import AdminRoutes from "./routes/admin.js";
 import ProductRoutes from "./routes/product.js";
-import OrderRoutes from "./routes/order.js";
-
+import ChatRoutes from "./routes/chat.js";
 dotenv.config();
 
 const app = express();
@@ -44,7 +43,7 @@ app.get("/", (_, res) => res.send("Hello world!"));
 app.use("/admin", AdminRoutes);
 app.use("/client", ClientRoutes);
 app.use("/product", ProductRoutes);
-app.use("/order", OrderRoutes);
+app.use("/chat", ChatRoutes);
 
 const startApp = async () => {
   try {
