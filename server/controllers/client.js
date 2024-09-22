@@ -2,9 +2,32 @@ import Client from "../models/client.js";
 import bcrypt from "bcrypt";
 import generateAvatar from "../middlewares/generateAvatar.js";
 import generateToken from "../middlewares/generateToken.js";
+import jwt from "jsonwebtoken";
 
 const sendErrorResponse = (res, statusCode, message) => {
   return res.status(statusCode).json({ message });
+};
+
+export const GetMe = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    return sendErrorResponse(res, 401, "No token provided.");
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWTSECRET_KEY);
+    const client = await Client.findById(decoded._id).select("-password");
+
+    if (!client) {
+      return sendErrorResponse(res, 404, "Client not found.");
+    }
+
+    return res.status(200).json({ client });
+  } catch (error) {
+    console.error(error);  // Log the error for debugging
+    return sendErrorResponse(res, 500, "Internal server error.");
+  }
 };
 
 export const ClientRegister = async (req, res) => {

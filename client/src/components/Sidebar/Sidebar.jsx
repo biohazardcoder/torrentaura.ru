@@ -2,9 +2,9 @@ import React from 'react';
 
 function Sidebar({ categories = [], selectedCategory, setSelectedCategory }) {
     return (
-        <div className="bg-sidebarBg text-sidebarText border-sidebarText border-t-[1px] border-r-0 border-b-0 border-l-0 w-72 col-span-1 row-span-10 shadow-md p-4 overflow-y-auto">
+        <div className="bg-sidebarBg text-sidebarText border-sidebarText border-t-[1px] border-r-0 border-b-0 border-l-0 w-72 md:w-1/4 lg:w-1/5 col-span-1 row-span-10 shadow-md p-4 overflow-y-auto">
             <h2 className="text-xl font-bold mb-4">Categories</h2>
-            <ul className="space-y-2 ">
+            <ul className="space-y-2">
                 {categories.length > 0 ? (
                     categories.map((category, index) => (
                         <li key={index}>

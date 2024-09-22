@@ -3,9 +3,11 @@ import Axios from '../../Axios';
 import { useParams } from 'react-router-dom';
 import { SiUtorrent } from "react-icons/si";
 import { FaGamepad, FaHome } from "react-icons/fa";
-import Chat from '../../components/Chat/Chat';
 import { AiFillLike } from "react-icons/ai";
 import { FaFire } from "react-icons/fa";
+import { BiError } from 'react-icons/bi';
+import Chat from '../../components/Chat/Chat';
+import { ClockLoader } from "react-spinners";
 
 const GameDetailPage = () => {
     const { id } = useParams();
@@ -37,11 +39,39 @@ const GameDetailPage = () => {
         }
     };
 
+    if (isLoading) {
+        return (
+            <div className=" space-y-6 col-span-6 row-span-10 text-center overflow-y-auto ">
+                <section className="absolute top-0 right-0 h-screen w-screen bg-sidebarBg ">
+                    <div className="container flex flex-col h-full items-center justify-center gap-3">
+                        <ClockLoader color="#ffffff" size={50} />
+                        <h1 className='text-xl text-white'>Loading...</h1>
+                    </div>
+                </section>
 
+            </div>
+        );
+    }
 
-
-    if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
-    if (error) return <p className="text-center text-red-500">Error: {error}</p>;
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg max-w-lg">
+                    <div className="flex items-center space-x-2">
+                        <BiError size={30} className="text-red-500" />
+                        <h2 className="font-bold text-lg">Error</h2>
+                    </div>
+                    <p className="mt-2 text-sm">{error}</p>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
+                    >
+                        Try Again
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="col-span-6 row-span-10 overflow-y-auto flex">
@@ -62,7 +92,10 @@ const GameDetailPage = () => {
                         <h1 className="text-2xl flex items-center gap-2 font-semibold text-red-600 mb-4">
                             <FaFire /> Likes: {game.like}
                         </h1>
-                        <button onClick={handleLike} className="px-4 py-2 flex items-center gap-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
+                        <button
+                            onClick={handleLike}
+                            className="px-4 py-2 flex items-center gap-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
+                        >
                             <AiFillLike />
                             Like
                         </button>
@@ -105,34 +138,32 @@ const GameDetailPage = () => {
                         </div>
                     </div>
                 )}
-                <div className=" text-hoverBg p-6 space-y-2 mb-6">
+                <div className="text-hoverBg p-6 space-y-2 mb-6">
                     <h2 className="text-xl font-bold text-black mb-4">Download:</h2>
-                    <a href={game.photos[0]} className="w-1/3 flex items-center gap-2 px-6 py-3 bg-gradient-to-t to-[gray] from-black text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-[1.01] duration-300">
-                        <span className='text-xl'>< FaGamepad /></span>
+                    <a
+                        href={game.photos[0]}
+                        className="w-1/3 flex items-center gap-2 px-6 py-3 bg-gradient-to-t to-[gray] from-black text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-[1.01] duration-300"
+                    >
+                        <span className='text-xl'><FaGamepad /></span>
                         Download Game
                     </a>
-
                 </div>
-                <div className=" text-hoverBg p-6 space-y-2 mb-6">
-                    <h2 className="text-xl font-bold text-black mb-4">Download Guide:</h2>
 
-                    <ul className=" pl-5">
-                        <li className="flex flex-col ">
+                <div className="text-hoverBg p-6 space-y-2 mb-6">
+                    <h2 className="text-xl font-bold text-black mb-4">Download Guide:</h2>
+                    <ul className="pl-5">
+                        <li className="flex flex-col">
                             <h2 className="text-lg font-semibold">1. Register/Login</h2>
                         </li>
-
                         <li>
                             <h2 className="text-lg font-semibold">2. Download Game</h2>
                         </li>
-
                         <li>
                             <h2 className="text-lg font-semibold">3. Download µTorrent</h2>
                         </li>
-
                         <li>
                             <h2 className="text-lg font-semibold">4. Open file via µTorrent</h2>
                         </li>
-
                         <li>
                             <h2 className="text-lg font-semibold">5. Install in Your Device</h2>
                         </li>
@@ -141,13 +172,20 @@ const GameDetailPage = () => {
 
                 <div className="bg-white p-6 shadow-lg rounded-lg mb-6">
                     <div className="flex gap-4">
-                        <a href="/" className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300">
+                        <a
+                            href="/"
+                            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300"
+                        >
                             <span className='text-xl'><FaHome /></span>
                             Back to Home
                         </a>
-                        <a href='https://www.utorrent.com/' target='_blank' className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300">
+                        <a
+                            href='https://www.utorrent.com/'
+                            target='_blank'
+                            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105 duration-300"
+                        >
                             <span className='text-xl'><SiUtorrent /></span>
-                            Download µTorrent
+                            Get µTorrent
                         </a>
                     </div>
                 </div>
