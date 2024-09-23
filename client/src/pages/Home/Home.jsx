@@ -5,6 +5,7 @@ import { getProductPending, getProductSuccess, getProductError } from "../../too
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { ClockLoader } from 'react-spinners';
 import { BiError } from 'react-icons/bi';
+import axios from "axios";
 
 const HomePage = () => {
     const dispatch = useDispatch();
@@ -44,7 +45,6 @@ const HomePage = () => {
             </div>
         );
     }
-
     if (isError) {
         return (
             <div className="flex col-span-6 row-span-10 flex-col items-center justify-center ">
