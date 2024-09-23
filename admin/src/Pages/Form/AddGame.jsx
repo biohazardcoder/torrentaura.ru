@@ -30,7 +30,7 @@ export const AddGame = () => {
       for (let i = 0; i < files.length; i++) {
         formImageData.append("photos", files[i]);
       }
-      const { data } = await Axios.post("/upload", formImageData);
+      const { data } = await Axios.post("upload", formImageData);
       setProductData((prevData) => ({
         ...prevData,
         photos: [...prevData.photos, ...data.photos],
