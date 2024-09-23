@@ -11,7 +11,6 @@ export const Header = () => {
 
   const fetchUserData = async () => {
     const token = Cookies.get("token");
-    console.log(token);
 
     try {
       const response = await Axios.get('/client/me', {
@@ -23,7 +22,6 @@ export const Header = () => {
       if (response.data.client) {
         setUser(response.data.client);
         setIsLoggedIn(true);
-        console.log(response);
       }
     } catch (error) {
       console.error("Failed to fetch user data", error);
