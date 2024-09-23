@@ -30,7 +30,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.post("/upload", upload.array("photos"), async (req, res) => {
   const uploadedImages = req.files.map(
-    (file) => `${req.protocol}://${req.get("host")}/uploads/${file.filename}`
+    (file) => `https://server-torrentaura-ru.onrender.com/uploads/${file.filename}`
   );
   res.status(200).json({
     message: "Изображения успешно загружены!",
