@@ -19,7 +19,7 @@ export const Dashboard = () => {
     Cookies.remove("token");
     window.location.href = "/";
   }
-
+  console.log(data);
   useEffect(() => {
     const fetchData = async () => {
       try {

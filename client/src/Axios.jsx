@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 
 const instance = axios.create({
-    baseURL: "https://server-torrentaura-ru.onrender.com/",
+    baseURL: "http://localhost:4000",
     headers: {
         Authorization: token,
     },

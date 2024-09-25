@@ -54,7 +54,7 @@ export const Games = () => {
       alert(error.response?.data?.message || "Failed to delete product");
     }
   };
-
+  console.log(data);
   const openModal = (game) => {
     setSelectedGame(game);
     setFormData(game);
@@ -166,9 +166,7 @@ export const Games = () => {
               >
                 <td className={DataMapTableTr}>
                   <img
-                    src={product.photos[1] ||
-                      "https://st3.depositphotos.com/5852012/15878/v/450/depositphotos_158781058-stock-illustration-photo-gallery-flat-icon-with.jpg"
-                    }
+                    src={product.photos[1]}
                     alt="Product"
                     className="w-12 h-12 mt-1 rounded-full object-cover border-2 border-highlight"
                   />
